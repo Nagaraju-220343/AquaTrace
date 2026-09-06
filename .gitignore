@@ -1,0 +1,28 @@
+# Node
+node_modules/
+dist/
+npm-debug.log
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+.venv
+
+# SQLite
+*.sqlite3
+*.db
+
+# Backend uploads/reports
+backend/uploads/
+backend/reports/
+backend/tests/__pycache__/
+backend/.pytest_cache/
+
+# General
+.vscode/
+.idea/

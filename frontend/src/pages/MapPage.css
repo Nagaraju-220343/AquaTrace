@@ -1,0 +1,131 @@
+.map-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+  gap: 16px;
+}
+
+.map-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-surface);
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.map-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.title-icon {
+  color: var(--accent-cyan);
+}
+
+.map-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.det-count {
+  font-size: 13px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.map-container-wrap {
+  flex: 1;
+  background: var(--bg-dark-viewer);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  overflow: hidden;
+  position: relative;
+}
+
+.leaflet-map {
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Keep map below modals/nav */
+}
+
+.map-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-disabled);
+  font-size: 15px;
+}
+
+/* Custom dark popup styling */
+.dark-popup .leaflet-popup-content-wrapper {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-active);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.dark-popup .leaflet-popup-tip {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-active);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 180px;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 8px;
+  margin-bottom: 4px;
+}
+
+.decision-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.decision-dot.accept { background-color: var(--accent-lime); box-shadow: 0 0 8px var(--accent-lime); }
+.decision-dot.review { background-color: var(--accent-amber); box-shadow: 0 0 8px var(--accent-amber); }
+.decision-dot.reject { background-color: var(--accent-rose); box-shadow: 0 0 8px var(--accent-rose); }
+
+.popup-body p {
+  margin: 3px 0;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+.popup-body p strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.btn-full {
+  width: 100%;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .map-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

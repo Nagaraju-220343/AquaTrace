@@ -1,0 +1,7 @@
+.app-body { flex: 1; overflow: hidden; position: relative; }
+.page { display: none; height: 100%; overflow-y: auto; }
+.page.active { display: flex; flex-direction: column; }
+
+@media (max-width: 768px) {
+  .app-body { padding-bottom: 78px; }
+}
