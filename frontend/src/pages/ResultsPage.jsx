@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { RefreshCcw, Download, ImageOff, CheckCircle, XCircle, AlertCircle, Activity, ZoomIn, ZoomOut, Maximize } from 'lucide-react';
 import './ResultsPage.css';
 
-const API_BASE   = 'http://127.0.0.1:8000/api/v1';
+const API_BASE   = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000/api/v1';
 // Images are mounted at /uploads/ on port 8000 — NOT under /api/v1/
-const IMG_BASE   = 'http://127.0.0.1:8000';
+const IMG_BASE   = import.meta.env.VITE_IMG_BASE || 'http://127.0.0.1:8000';
 
 // final_confidence  → 0-100 scale  (display as-is)
 // detector_confidence → 0-1 scale  (multiply by 100 to display)

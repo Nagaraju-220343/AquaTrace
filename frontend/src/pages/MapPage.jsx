@@ -5,7 +5,7 @@ import { RefreshCcw, Map as MapIcon, Image as ImageIcon } from 'lucide-react';
 import L from 'leaflet';
 import './MapPage.css';
 
-const API_BASE = 'http://127.0.0.1:8000/api/v1';
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://127.0.0.1:8000/api/v1';
 
 // Fix for default Leaflet marker icons in React
 delete L.Icon.Default.prototype._getIconUrl;
@@ -155,7 +155,7 @@ export default function MapPage() {
                           <p><strong>Size:</strong> {det.dimensions_meters[0]}m x {det.dimensions_meters[1]}m</p>
                         )}
                       </div>
-                      <a href={`http://127.0.0.1:8000/api/v1/analysis/image/${selectedJob}`} target="_blank" rel="noreferrer" className="btn btn-sm btn-full mt-2" style={{justifyContent: 'center', backgroundColor: 'var(--bg-hover)'}}>
+                      <a href={`${API_BASE}/analysis/image/${selectedJob}`} target="_blank" rel="noreferrer" className="btn btn-sm btn-full mt-2" style={{justifyContent: 'center', backgroundColor: 'var(--bg-hover)'}}>
                         <ImageIcon size={14} /> View Sonar Image
                       </a>
                     </div>
