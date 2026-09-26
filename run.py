@@ -34,21 +34,37 @@ import spaces
 # REQUIRED by HF ZeroGPU: at least one @spaces.GPU function must exist
 # AND be connected to a Gradio event handler.
 # -----------------------------------------------------------------------
-@spaces.GPU(duration=120)
-def gpu_warmup(x):
-    """GPU slot holder — actual inference runs via /api/v1/ routes."""
-    return "GPU allocated"
+# Import backend BEFORE defining GPU wrapper so we can wrap the real function
+from app.modules.detection import pipeline as _detection_pipeline
+_original_run_detection = _detection_pipeline.run_detection_pipeline
 
-# Minimal Gradio UI (required entry point for ZeroGPU Gradio SDK)
+# -----------------------------------------------------------------------
+# ZEROGPU WRAPPER: Wrap the YOLO inference function with @spaces.GPU so
+# HF allocates a real GPU for each call. We also connect it to a Gradio
+# event so HF's startup detector registers it properly.
+# -----------------------------------------------------------------------
+@spaces.GPU(duration=120)
+def gpu_run_detection(yolo_images, pipeline_metadata, analysis_id,
+                      conf_threshold=0.01, iou_threshold=0.50):
+    """ZeroGPU-wrapped YOLO inference. Called by FastAPI routes via monkey-patch."""
+    return _original_run_detection(
+        yolo_images, pipeline_metadata, analysis_id,
+        conf_threshold, iou_threshold
+    )
+
+# Monkey-patch: all existing backend code calling run_detection_pipeline
+# now automatically gets a ZeroGPU GPU slot allocated.
+_detection_pipeline.run_detection_pipeline = gpu_run_detection
+
+# Minimal Gradio UI with the GPU function connected to a hidden element
+# (HF's startup detector requires a Gradio event handler)
 with gr.Blocks(title="AquaTrace Backend API") as demo:
-    gr.Markdown("## 🌊 AquaTrace Backend API")
+    gr.Markdown("## \U0001f30a AquaTrace Backend API")
     gr.Markdown("**Swagger Docs:** [/docs](/docs)")
     gr.Markdown("**Upload endpoint:** `POST /api/v1/files/upload`")
-    # Hidden component wired to our @spaces.GPU function — this is what
-    # HF's startup detector looks for to confirm GPU functions exist.
     hidden_in  = gr.Textbox(visible=False)
     hidden_out = gr.Textbox(visible=False)
-    hidden_in.submit(fn=gpu_warmup, inputs=[hidden_in], outputs=[hidden_out])
+    hidden_in.submit(fn=gpu_run_detection, inputs=[hidden_in], outputs=[hidden_out])
 
 port = 7860 if "SPACE_ID" in os.environ else 8000
 
