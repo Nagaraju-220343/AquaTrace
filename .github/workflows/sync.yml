@@ -19,4 +19,4 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           pip install huggingface_hub
-          python -c "from huggingface_hub import HfApi; HfApi().upload_folder(folder_path='.', repo_id='N220343nagaraju/aquatrace-backend', repo_type='space', ignore_patterns=['.git/*', '.github/*'])"
+          python -c "from huggingface_hub import HfApi; HfApi().upload_folder(folder_path='.', repo_id='N220343nagaraju/aquatrace-backend', repo_type='space', ignore_patterns=['.git/*', '.github/*'], delete_patterns='*')"
