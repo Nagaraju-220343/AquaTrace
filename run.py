@@ -47,8 +47,9 @@ with gr.Blocks(title="AquaTrace Backend API") as demo:
     gr.Markdown("**API Docs (Swagger):** [/docs](/docs)")
     gr.Markdown("**Upload endpoint:** `POST /api/v1/files/upload`")
 
-# Mount Gradio at /ui — FastAPI routes remain at /api/v1/
-app = gr.mount_gradio_app(fastapi_app, demo, path="/ui")
+# Mount Gradio at root "/" — FastAPI routes (/api/v1/, /docs) still work
+# because they are matched first (more specific paths take precedence)
+app = gr.mount_gradio_app(fastapi_app, demo, path="/")
 
 if __name__ == "__main__":
     port = 7860 if "SPACE_ID" in os.environ else 8000
