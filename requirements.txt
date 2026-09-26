@@ -11,3 +11,4 @@ pyproj==3.6.1
 shapely==2.0.4
 geopandas==0.14.4
 reportlab==4.2.0
+spaces
