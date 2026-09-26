@@ -1,3 +1,13 @@
+---
+title: AquaTrace Backend
+emoji: 🌊
+colorFrom: blue
+colorTo: green
+sdk: gradio
+sdk_version: 4.36.1
+app_file: app.py
+pinned: false
+---
 # AquaTrace: Marine Anomaly Detection
 
 ## The Problem
