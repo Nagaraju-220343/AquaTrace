@@ -17,4 +17,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push --force https://nagaraju-220343:$HF_TOKEN@huggingface.co/spaces/nagaraju-220343/aquatrace-backend main
+        run: git push --force https://N220343nagaraju:$HF_TOKEN@huggingface.co/spaces/N220343nagaraju/aquatrace-backend main
