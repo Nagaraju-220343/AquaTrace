@@ -17,4 +17,6 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push --force https://N220343nagaraju:$HF_TOKEN@huggingface.co/spaces/N220343nagaraju/aquatrace-backend main
+        run: |
+          pip install -U "huggingface_hub[cli]"
+          huggingface-cli upload N220343nagaraju/aquatrace-backend . . --repo-type space --exclude ".git/*" ".github/*"
