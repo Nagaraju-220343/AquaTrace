@@ -185,6 +185,22 @@ async def list_jobs(db: Session = Depends(get_db)):
     ]
 
 
+@router.delete("/analysis/jobs/all")
+async def delete_all_jobs(db: Session = Depends(get_db)):
+    """
+    Full reset: deletes ALL detection records and jobs from the database.
+    Used by the Map View 'reset' button so operators start fresh.
+    """
+    deleted_detections = db.query(DetectionRecord).delete()
+    deleted_jobs = db.query(AnalysisJob).delete()
+    db.commit()
+    return {
+        "deleted_jobs": deleted_jobs,
+        "deleted_detections": deleted_detections,
+        "message": "All jobs and detections cleared."
+    }
+
+
 @router.get("/analysis/image/{job_id}")
 async def get_job_image(job_id: str, db: Session = Depends(get_db)):
     """
